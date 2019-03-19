@@ -33,10 +33,32 @@ public:
 #endif
 
 protected:
+	int m_pixelformat;
+	HGLRC m_hglRendContext;
+
+	GLfloat vdColor1[3];
+	GLfloat vdColor2[3];
+	GLfloat vdColor3[3];
+	GLfloat vdColor4[3];
+	GLfloat vdColor5[3];
+	GLfloat vdColor6[3];
+	GLfloat vdColor7[3];
+	GLfloat vdColor8[3];
+
+	GLfloat *clrArray[8];
+
+	BOOL InitPixelFormat(HDC hDC);
+	void InitPFDStruct(PIXELFORMATDESCRIPTOR *ppfd);
 
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnDestroy();
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
 #ifndef _DEBUG  // debug version in OglView.cpp
