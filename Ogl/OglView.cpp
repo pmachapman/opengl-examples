@@ -70,6 +70,8 @@ COglView::COglView() noexcept
 	clrArray[5] = vdColor6;
 	clrArray[6] = vdColor7;
 	clrArray[7] = vdColor8;
+
+	theta = 0.0;
 }
 
 COglView::~COglView()
@@ -160,6 +162,7 @@ void COglView::OnMouseMove(UINT nFlags, CPoint point)
 	}
 
 	clrArray[7] = glfTemp;
+	theta += 0.5;
 	Invalidate(FALSE);
 
 	CView::OnMouseMove(nFlags, point);
@@ -169,15 +172,21 @@ void COglView::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 	// TODO: Add your message handler code here
+	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT);
-	glBegin(GL_POLYGON);
-		glColor3fv(clrArray[0]);
-		glVertex2f(20.0f, 20.0f);
-		glColor3fv(clrArray[1]);
-		glVertex2f(175.0f, 20.0f);
-		glColor3fv(clrArray[2]);
-		glVertex2f(90.0f, 200.0f);
-	glEnd();
+
+	glPushMatrix();
+		glRotated(theta, 0.0, 0.0, 1.0);
+		//glTranslated(100.0, 100.0, 0);
+		glBegin(GL_POLYGON);
+			glColor3fv(clrArray[0]);
+			glVertex2f(20.0f, 20.0f);
+			glColor3fv(clrArray[1]);
+			glVertex2f(175.0f, 20.0f);
+			glColor3fv(clrArray[2]);
+			glVertex2f(90.0f, 200.0f);
+		glEnd();
+	glPopMatrix();
 	glBegin(GL_POLYGON);
 		glColor3fv(clrArray[3]);
 		glVertex2f(250.0f, 20.0f);

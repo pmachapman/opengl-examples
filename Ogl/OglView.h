@@ -47,6 +47,8 @@ protected:
 
 	GLfloat *clrArray[8];
 
+	GLdouble theta;
+
 	BOOL InitPixelFormat(HDC hDC);
 	void InitPFDStruct(PIXELFORMATDESCRIPTOR *ppfd);
 
