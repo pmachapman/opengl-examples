@@ -36,6 +36,7 @@ COglView::COglView() noexcept
 	// TODO: add construction code here
 	m_pixelformat = 0;
 	m_hglRendContext = NULL;
+	theta = 5.0;
 
 	vdColor1[0] = 1.0;
 	vdColor1[1] = 0.0;
@@ -70,8 +71,6 @@ COglView::COglView() noexcept
 	clrArray[5] = vdColor6;
 	clrArray[6] = vdColor7;
 	clrArray[7] = vdColor8;
-
-	theta = 0.0;
 }
 
 COglView::~COglView()
@@ -162,7 +161,7 @@ void COglView::OnMouseMove(UINT nFlags, CPoint point)
 	}
 
 	clrArray[7] = glfTemp;
-	theta += 0.5;
+	theta += 5.0;
 	Invalidate(FALSE);
 
 	CView::OnMouseMove(nFlags, point);
