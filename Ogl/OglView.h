@@ -49,6 +49,7 @@ protected:
 
 	GLdouble theta;
 
+	void DrawBox(GLfloat x, GLfloat y, GLfloat z);
 	BOOL InitPixelFormat(HDC hDC);
 	void InitPFDStruct(PIXELFORMATDESCRIPTOR *ppfd);
 

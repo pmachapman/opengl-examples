@@ -153,6 +153,7 @@ void COglView::OnDestroy()
 void COglView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
+#if 0
 	GLfloat *glfTemp;
 	glfTemp = clrArray[0];
 	for (int j = 0; j < 7; j++)
@@ -161,6 +162,7 @@ void COglView::OnMouseMove(UINT nFlags, CPoint point)
 	}
 
 	clrArray[7] = glfTemp;
+#endif
 	theta += 5.0;
 	Invalidate(FALSE);
 
@@ -171,47 +173,30 @@ void COglView::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 	// TODO: Add your message handler code here
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glClear(GL_COLOR_BUFFER_BIT);
+	
+	glTranslated(0.0, 0.0, -9.0);
+	glRotated(theta, 1.0, 0.0, 0.0); // Spin along the X axis
+	// The next two lines can be uncommented to see rotation along Y and Z axis
+	// glRotated(theta, 0.0, 1.0, 0.0); // Spin along the Y axis
+	// glRotated(theta, 0.0, 0.0, 1.0); // Spin along the Z axis
 
 	glPushMatrix();
-		glRotated(theta, 0.0, 0.0, 1.0);
-		//glTranslated(100.0, 100.0, 0);
-		glBegin(GL_POLYGON);
-			glColor3fv(clrArray[0]);
-			glVertex2f(20.0f, 20.0f);
-			glColor3fv(clrArray[1]);
-			glVertex2f(175.0f, 20.0f);
-			glColor3fv(clrArray[2]);
-			glVertex2f(90.0f, 200.0f);
-		glEnd();
+		// Commented out lines can be uncommented to see rotation along X and Z axis
+		// glRotated(theta, 1.0, 0.0, 0.0); // Spin along the X axis
+		glRotated(theta, 0.0, 1.0, 0.0); // Spin along the Y axis
+		// glRotated(theta, 0.0, 0.0, 1.0); // Spin along the Z axis
+
+		glTranslated(0.0, 0.05, 0.0); // Translate only along the Y axis
+		DrawBox(0.5f, 0.5f, 0.5f);
 	glPopMatrix();
-	glBegin(GL_POLYGON);
-		glColor3fv(clrArray[3]);
-		glVertex2f(250.0f, 20.0f);
-		glColor3fv(clrArray[4]);
-		glVertex2f(400.0f, 20.0f);
-		glColor3fv(clrArray[5]);
-		glVertex2f(400.0f, 220.0f);
-		glColor3fv(clrArray[6]);
-		glVertex2f(250.0f, 220.0f);
-	glEnd();
-	glBegin(GL_POLYGON);
-		glColor3fv(clrArray[7]);
-		glVertex2f(150.0f, 250.0f);
-		glColor3fv(clrArray[0]);
-		glVertex2f(350.0f, 250.0f);
-		glColor3fv(clrArray[1]);
-		glVertex2f(400.0f, 375.0f);
-		glColor3fv(clrArray[2]);
-		glVertex2f(250.0f, 450.0f);
-		glColor3fv(clrArray[3]);
-		glVertex2f(100.0f, 375.0f);
-	glEnd();
+
+	DrawBox(1.0f, 0.30f, 0.25f);
 	glFlush();
-#if 1
 	SwapBuffers(wglGetCurrentDC());
-#endif;
 	// Do not call CView::OnPaint() for painting messages
 }
 
@@ -228,13 +213,77 @@ void COglView::OnSize(UINT nType, int cx, int cy)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0.0, (GLdouble)500.0*(cx / cy), 0.0, 500.0);
+	gluPerspective(30.0f, cx / cy, 1.0, 20.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glDrawBuffer(GL_BACK);
 }
 
 // COglView custom methods
+
+void COglView::DrawBox(GLfloat x, GLfloat y, GLfloat z)
+{
+	glBegin(GL_POLYGON);
+		glColor3fv(clrArray[0]);
+		glVertex3f(x, y, z);
+		glColor3fv(clrArray[1]);
+		glVertex3f(-x, y, z);
+		glColor3fv(clrArray[2]);
+		glVertex3f(-x,- y, z);
+		glColor3fv(clrArray[3]);
+		glVertex3f(x, -y, z);
+	glEnd();
+	glBegin(GL_POLYGON);
+		glColor3fv(clrArray[4]);
+		glVertex3f(x, y, -z);
+		glColor3fv(clrArray[5]);
+		glVertex3f(-x, y, -z);
+		glColor3fv(clrArray[6]);
+		glVertex3f(-x, -y, -z);
+		glColor3fv(clrArray[7]);
+		glVertex3f(x, -y, -z);
+	glEnd();
+	glBegin(GL_POLYGON);
+		glColor3fv(clrArray[0]);
+		glVertex3f(-x, y, z);
+		glColor3fv(clrArray[1]);
+		glVertex3f(-x, y, -z);
+		glColor3fv(clrArray[2]);
+		glVertex3f(-x, -y, -z);
+		glColor3fv(clrArray[3]);
+		glVertex3f(-x, -y, z);
+	glEnd();
+	glBegin(GL_POLYGON);
+		glColor3fv(clrArray[4]);
+		glVertex3f(x, y, z);
+		glColor3fv(clrArray[5]);
+		glVertex3f(x, y, -z);
+		glColor3fv(clrArray[6]);
+		glVertex3f(x, -y, -z);
+		glColor3fv(clrArray[7]);
+		glVertex3f(x, -y, z);
+	glEnd();
+	glBegin(GL_POLYGON);
+		glColor3fv(clrArray[0]);
+		glVertex3f(x, y, z);
+		glColor3fv(clrArray[1]);
+		glVertex3f(x, y, -z);
+		glColor3fv(clrArray[2]);
+		glVertex3f(-x, y, -z);
+		glColor3fv(clrArray[3]);
+		glVertex3f(-x, y, z);
+	glEnd();
+	glBegin(GL_POLYGON);
+		glColor3fv(clrArray[4]);
+		glVertex3f(x, -y, z);
+		glColor3fv(clrArray[5]);
+		glVertex3f(x, -y, -z);
+		glColor3fv(clrArray[6]);
+		glVertex3f(-x, -y, -z);
+		glColor3fv(clrArray[7]);
+		glVertex3f(-x, -y, z);
+	glEnd();
+}
 
 BOOL COglView::InitPixelFormat(HDC hDC)
 {
