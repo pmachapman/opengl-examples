@@ -55,7 +55,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ogl.reg" />
     <None Include="res\Ogl.rc2">
       <Filter>Resource Files</Filter>
     </None>
@@ -70,9 +69,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Ogl.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Toolbar.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

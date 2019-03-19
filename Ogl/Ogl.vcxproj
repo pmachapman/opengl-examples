@@ -204,7 +204,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ogl.reg" />
     <None Include="res\Ogl.rc2" />
   </ItemGroup>
   <ItemGroup>
@@ -213,7 +212,6 @@
   <ItemGroup>
     <Image Include="res\Ogl.ico" />
     <Image Include="res\OglDoc.ico" />
-    <Image Include="res\Toolbar.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

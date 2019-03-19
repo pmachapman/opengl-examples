@@ -62,8 +62,8 @@ BOOL COglApp::InitInstance()
 	// Change the registry key under which our settings are stored
 	// TODO: You should modify this string to be something appropriate
 	// such as the name of your company or organization
-	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
-	LoadStdProfileSettings(4);  // Load standard INI file options (including MRU)
+	// SetRegistryKey(_T("Local AppWizard-Generated Applications"));
+	// LoadStdProfileSettings(4);  // Load standard INI file options (including MRU)
 
 
 	// Register the application's document templates.  Document templates
@@ -84,8 +84,8 @@ BOOL COglApp::InitInstance()
 	ParseCommandLine(cmdInfo);
 
 	// Enable DDE Execute open
-	EnableShellOpen();
-	RegisterShellFileTypes(TRUE);
+	// EnableShellOpen();
+	// RegisterShellFileTypes(TRUE);
 
 
 	// Dispatch commands specified on the command line.  Will return FALSE if
@@ -99,7 +99,7 @@ BOOL COglApp::InitInstance()
 	// call DragAcceptFiles only if there's a suffix
 	//  In an SDI app, this should occur after ProcessShellCommand
 	// Enable drag/drop open
-	m_pMainWnd->DragAcceptFiles();
+	// m_pMainWnd->DragAcceptFiles();
 	return TRUE;
 }
 
