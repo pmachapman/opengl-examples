@@ -12,6 +12,8 @@
 #include "OglDoc.h"
 #include "OglView.h"
 
+#include "glaux.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -132,6 +134,8 @@ int COglView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return 0;
 	m_hglRendContext = wglCreateContext(hDC);
 	wglMakeCurrent(hDC, m_hglRendContext);
+	init_opengl();
+	installBrickShaders(brickVertex, brickFragment);
 	return 0;
 }
 
@@ -191,10 +195,12 @@ void COglView::OnPaint()
 		// glRotated(theta, 0.0, 0.0, 1.0); // Spin along the Z axis
 
 		glTranslated(0.0, 0.05, 0.0); // Translate only along the Y axis
-		DrawBox(0.5f, 0.5f, 0.5f);
+		//DrawBox(0.5f, 0.5f, 0.5f);
+
+		auxSolidTeapot(0.5);
 	glPopMatrix();
 
-	DrawBox(1.0f, 0.30f, 0.25f);
+	//DrawBox(1.0f, 0.30f, 0.25f);
 	glFlush();
 	SwapBuffers(wglGetCurrentDC());
 	// Do not call CView::OnPaint() for painting messages
